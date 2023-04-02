@@ -10,17 +10,22 @@
 --
 -- Keep this module as small as possible, because it will be imported to adapt
 -- values. Any dependency of this module cannot be code-covered.
-module Dekking.ValueLevelAdapter (coverageFileName, adaptValue) where
+module Dekking.ValueLevelAdapter (getCoverageFileName, adaptValue) where
 
+import Data.UUID
+import Data.UUID.V4
 import System.IO
 import System.IO.Unsafe
 
-coverageFileName :: FilePath
-coverageFileName = "coverage.dat"
+getCoverageFileName :: IO FilePath
+getCoverageFileName = do
+  uuid <- nextRandom
+  return $ "coverage-" <> toString uuid <> ".dat"
 
 {-# NOINLINE coverageHandle #-}
 coverageHandle :: Handle
 coverageHandle = unsafePerformIO $ do
+  coverageFileName <- getCoverageFileName
   h <- openFile coverageFileName AppendMode
   hSetBuffering h LineBuffering
   pure h
