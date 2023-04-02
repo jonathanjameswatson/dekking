@@ -3,3 +3,4 @@ coverage.dat
 *.html
 *.css
 *.json
+.stack-work/

@@ -1,0 +1,10 @@
+resolver: lts-20.16
+
+packages:
+- dekking-plugin
+- dekking-report
+- dekking-value
+- e2e-test/example
+- e2e-test/foobar
+- e2e-test/foobar-gen
+- e2e-test/syntax
