@@ -5,6 +5,7 @@ import Control.Monad.Writer.Strict
 import Data.List (isPrefixOf, stripPrefix)
 import Data.Maybe (mapMaybe)
 import Dekking.Coverable
+import Dekking.DangerTcPlugin
 import Dekking.SourceAdapter
 import GHC
 import qualified GHC.Data.EnumSet as EnumSet
@@ -12,6 +13,7 @@ import GHC.Driver.Env
 import GHC.Driver.Plugins
 import GHC.Driver.Session
 import GHC.LanguageExtensions
+import GHC.TcPlugin.API (mkTcPlugin)
 import Path
 import Path.IO
 
@@ -36,7 +38,8 @@ plugin =
                   . setImpredicativeTypes
                   $ hsc_dflags hscEnv
             },
-      parsedResultAction = adaptParseResult
+      parsedResultAction = adaptParseResult,
+      tcPlugin = const $ Just $ mkTcPlugin dangerTcPlugin
     }
 
 -- [tag:-XImpredicativeTypes]

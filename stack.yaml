@@ -1,4 +1,7 @@
-resolver: lts-20.16
+resolver: lts-20.17
+
+extra-deps:
+- ghc-tcplugin-api-0.10.0.0
 
 packages:
 - dekking-plugin
